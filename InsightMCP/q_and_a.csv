@@ -1,0 +1,483 @@
+﻿Case Number,Question,Answer
+pathTestClient1,Adequacy of Sample for Testing,Adequate
+pathTestClient1,Estimated % Tumor Cellularity (area used for testing),33
+pathTestClient1,Specimen Type,Untreated diagnostic specimen
+pathTestClient1,Mutational Analysis,No EGFR mutation detected
+pathTestClient1,Rearrangement by Molecular Methods,Rearrangement identified
+pathTestClient1,ALK Rearrangement,KIF5B-ALK
+pathTestClient1,Antibody,SP142
+pathTestClient1,Controls,"Internal control cells present, no immunoreactivity of either tumor cells or internal controls"
+pathTestClient1,Assay Information,Laboratory-developed test
+test,Tumor Site,Adrenal gland
+test,Patient Age Group,Adult (older than 18 years)
+test,Procedure,"Adrenalectomy, total"
+test,Specimen Laterality,Left
+test,"Histologic Subtype (Notes C, D)",Oncocytic adrenal cortical carcinoma
+test,"Mitotic Tumor Grade (required for adult patients only) (Notes C, D)",Low grade (less than or equal to 20 mitoses per 10 mm2)
+test,"Tumor Size (Notes E, F)",Cannot be determined (explain)test
+test,Adrenal Gland Weight (Note G),Cannot be determinedtest
+test,Site(s) Involved by Direct Tumor Extension,Liver
+test,Lymphovascular Invasion (Note H),Cannot be determined
+test,Margin Status,Carcinoma present at margin
+test,Margin(s) Involved by Carcinoma,Cannot be determined (explain)test
+test,Regional Lymph Node Status,Regional lymph nodes present
+test,Regional Lymph Node Status,Tumor present in regional lymph node(s)
+test,Number of Lymph Nodes with Tumor,Cannot be determined (explain)test
+test,Number of Lymph Nodes Examined,Cannot be determined (explain)test
+test,"Distant Site(s) Involved, if applicable",Cannot be determinedtest
+test,Modified Classification (required only if applicable),r (recurrence)
+test,pT Category,"pT4: Tumor of any size with invasion of adjacent organs (kidney, diaphragm, pancreas, spleen, or liver) or large blood vessels (renal vein or vena cava)"
+test,T Suffix (required only if applicable),(m) multiple primary synchronous tumors in a single organ
+test,pN Category (Note J),pN1: Metastasis in regional lymph node(s)
+test,pM Category (required only if confirmed pathologically) (Note K),Not applicable - pM cannot be determined from the submitted specimen(s)
+test,Ki-67 Labeling Index,Pending
+test,Biomarkers Confirming Adrenal Cortical Origin# (select positive biomarker(s)),Not applicable
+8597,Tumor Site,Thyroid gland
+8597,Predisposing Condition(s),Radiation exposure (specify type)test
+8597,Procedure,Right partial excision#
+8597,Tumor Focality (Note C),Unifocal
+8597,Unifocal left/right procedure for alert,right procedure
+8597,Tumor Site (Note C),Right lobe
+8597,Tumor Size (Note I),Greatest dimension in Centimeters (cm)1
+8597,Unifocal Greatest dimension in Centimeters (cm),1
+8597,Tumor Size,1 Centimeters (cm)
+8597,"Histologic Tumor Types and Subtypes (Notes D, E, F, G, H)",Low-risk follicular cell-derived thyroid neoplasms
+8597,Histologic Tumor Types and Subtypes,Thyroid follicular tumor of uncertain malignant potential
+8597,Mitotic Rate,Less than 3 mitoses per 2mm2
+8597,Ki-67 Labeling Index (required only if applicable),Not applicable
+8597,Tumor Necrosis,Not identified
+8597,Angioinvasion (vascular invasion) (Note K),Not identified
+8597,Lymphatic Invasion (Note K),Not identified
+8597,Extrathyroidal Extension (Note J),Not identified
+8597,Margin Status (Note L),All margins negative for carcinoma
+8597,Regional Lymph Node Status,Not applicable (no regional lymph nodes submitted or found)
+8597,"Distant Site(s) Involved, if applicable",Not applicable
+8597,Modified Classification (required only if applicable),Not applicable
+8597,pT Category,"For malignant follicular cell-derived thyroid neoplasms including follicular thyroid carcinoma, invasive follicular variant papillary thyroid carcinoma, papillary thyroid carcinoma, oncocytic carcinoma of the thyroid, high-grade differentiated thyroid carcinomas, poorly differentiated thyroid carcinoma and anaplastic follicular cell-derived thyroid carcinoma#"
+8597,pT Category,"pT1a: Tumor less than or equal to 1 cm in greatest dimension, limited to the thyroid."
+8597,T Suffix (required only if applicable),Not applicable
+8597,pN Category#,pN not assigned (no nodes submitted or found)
+8597,pM Category (required only if confirmed pathologically),Not applicable - pM cannot be determined from the submitted specimen(s)
+95584,Procedure (Note A),Excision (less than total mastectomy)
+95584,Specimen Laterality,Right
+95584,Histologic Type (Note C),No residual invasive carcinoma
+95584,Histologic Grade (Nottingham Histologic Score) (Note D),Not applicable (no residual carcinoma or microinvasion only)
+95584,Tumor Size (Note E),No residual invasive carcinoma
+95584,Ductal Carcinoma In Situ (DCIS) (Note G),Not identified
+95584,"Tumor Extent (required only if skin, nipple, or skeletal muscle are present and involved)","Not applicable (skin, nipple, and skeletal muscle are absent OR are uninvolved)"
+95584,Lymphatic and / or Vascular Invasion (Note I),Not identified
+95584,Treatment Effect in the Breast (Note K),No known presurgical therapy
+95584,Treatment Effect in the Lymph Nodes (required if nodes are submitted and it is known that the patient had presurgical therapy),Not applicable
+95584,Residual Cancer Burden (RCB) Calculation (for institutions that wish to report treatment effect using the RCB calculator)# (Note K),Not applicable (RCB not reported)
+95584,Margin Status for Invasive Carcinoma (required only if residual invasive carcinoma is present in specimen),Not applicable (residual invasive carcinoma in specimen is absent)
+95584,Margin Status for DCIS (required only if DCIS is present in specimen),Not applicable (no DCIS in specimen)
+95584,Regional Lymph Node Status,Not applicable (no regional lymph nodes submitted or found)
+95584,total number of involved  lymph nodes with at leasts (itc's not incluced),0
+95584,total number of involved  lymph nodes exact only (itc's not incluced),0
+95584,is at least used,no
+95584,LN count for alert,0
+95584,other and cbd for staging,yes
+95584,"Distant Site(s) Involved, if applicable",Not applicable
+95584,Modified Classification (required only if applicable),Not applicable
+95584,pT Category,pT0: No evidence of primary tumour#
+95584,T Suffix (required only if applicable),Not applicable
+95584,pN Category,pN not assigned (no nodes submitted or found)
+95584,N Suffix (required only if applicable),Not applicable
+95584,pM Category (required only if confirmed pathologically),Not applicable - pM cannot be determined from the submitted specimen(s)
+123546,Tumor Site,Thyroid gland
+123546,Procedure,Right partial excision#
+123546,Tumor Focality (Note C),Multifocal
+123546,Unifocal left/right procedure for alert,right procedure
+123546,Tumor Identifier (for cases with multiple tumors),tumor identifier 1
+123546,Tumor Site (Note C),Right lobe
+123546,Multifocall left/right procedure for alert,right procedure
+123546,Tumor Size (Note I),Greatest dimension in Centimeters (cm)1
+123546,Multifocal Greatest dimension in Centimeters (cm),1
+123546,Additional Dimension in Centimeters (cm),1
+123546,Additional Dimension in Centimeters (cm),1
+123546,Tumor Size,1 x 1 x 1 Centimeters (cm)
+123546,"Histologic Tumor Types and Subtypes (Notes D, E, F, G, H)",Low-risk follicular cell-derived thyroid neoplasms
+123546,Histologic Tumor Types and Subtypes,Thyroid follicular tumor of uncertain malignant potential
+123546,Histology Comment,histo comment 1
+123546,Mitotic Rate,Less than 3 mitoses per 2mm2
+123546,Specify Mitoses per 2 mm2,1
+123546,Ki-67 Labeling Index (required only if applicable),Not applicable
+123546,Tumor Necrosis,Not identified
+123546,Angioinvasion (vascular invasion) (Note K),Not identified
+123546,Lymphatic Invasion (Note K),Not identified
+123546,Perineural Invasion,Not identified
+123546,Extrathyroidal Extension (Note J),Not identified
+123546,Tumor Comment,tumor comment 1
+123546,Margin Status (Note L),All margins negative for carcinoma
+123546,Distance from Invasive Carcinoma to Closest Margin,Exact distance1
+123546,Multi Exact distance,1
+123546,Margin Comment,margin comment 1
+123546,Tumor Identifier (for cases with multiple tumors),tumor identifier 2
+123546,Tumor Site (Note C),Right lobe
+123546,Tumor Size (Note I),Greatest dimension in Centimeters (cm)2
+123546,Multifocal Greatest dimension in Centimeters (cm),2
+123546,Additional Dimension in Centimeters (cm),2
+123546,Additional Dimension in Centimeters (cm),2
+123546,Tumor Size,2 x 2 x 2 Centimeters (cm)
+123546,"Histologic Tumor Types and Subtypes (Notes D, E, F, G, H)",Low-risk follicular cell-derived thyroid neoplasms
+123546,Histologic Tumor Types and Subtypes,Thyroid follicular tumor of uncertain malignant potential
+123546,Histology Comment,histologic comment 2
+123546,Mitotic Rate,Less than 3 mitoses per 2mm2
+123546,Specify Mitoses per 2 mm2,1
+123546,Ki-67 Labeling Index (required only if applicable),Not applicable
+123546,Tumor Necrosis,Not identified
+123546,Angioinvasion (vascular invasion) (Note K),Not identified
+123546,Lymphatic Invasion (Note K),Not identified
+123546,Perineural Invasion,Not identified
+123546,Extrathyroidal Extension (Note J),Not identified
+123546,Tumor Comment,tumor comment 2
+123546,Margin Status (Note L),All margins negative for carcinoma
+123546,Distance from Invasive Carcinoma to Closest Margin,Exact distance2
+123546,Multi Exact distance,2
+123546,Margin Comment,margin comment 2
+123546,Regional Lymph Node Status,Not applicable (no regional lymph nodes submitted or found)
+123546,"Distant Site(s) Involved, if applicable",Not applicable
+123546,Modified Classification (required only if applicable),Not applicable
+123546,pT Category,"For malignant follicular cell-derived thyroid neoplasms including follicular thyroid carcinoma, invasive follicular variant papillary thyroid carcinoma, papillary thyroid carcinoma, oncocytic carcinoma of the thyroid, high-grade differentiated thyroid carcinomas, poorly differentiated thyroid carcinoma and anaplastic follicular cell-derived thyroid carcinoma#"
+123546,pT Category,"pT1a: Tumor less than or equal to 1 cm in greatest dimension, limited to the thyroid."
+123546,T Suffix (required only if applicable),Not applicable
+123546,pN Category#,pN not assigned (no nodes submitted or found)
+123546,pM Category (required only if confirmed pathologically),Not applicable - pM cannot be determined from the submitted specimen(s)
+pathTestWeb1,SPECIMEN,Afdsfdsfsd
+pathTestWeb1,PathologyInvestigationType,Curettage
+pathTestWeb1,SpecimenNature,Not known
+pathTestWeb1,DiagnosisIcdPathological,Bone Tumour
+pathTestWeb1,GradeOfDifferentiationPathological,Well differentiated
+pathTestWeb1,CancerVascularOrLymphaticInvasion,Not known
+pathTestWeb1,ExcisionMargin,Not known
+pathTestWeb1,SynchronousTumourIndicator,Not known
+pathTestWeb1,TumourNecrosis,12
+pathTestWeb1,COSDReportedDataset,TRUE
+pathTestWeb1,TnmVersionNumberPathological,8
+pathTestWeb1,TnmCodingEdition,1 UICC
+pathTestWeb1,Greatest Dimension (mm),5
+pathTestWeb1,Specimen Size,5 mm
+pathTestWeb1,TumourLateralityPathological,Right
+pathTestWeb1,LesionSizePathological,4
+pathTestWeb1,Tumour Size,4 mm
+pathTestWeb1,Histological Diagnosis of Tumour Type,Chondrogenic Tumours
+pathTestWeb1,Chondrogenic Tumours,Chondromyxoid fibroma
+pathTestWeb1,Tumour Grade,Low grade (G1)
+pathTestWeb1,GeneticConfirmationIndicator,"Yes, confirmed"
+pathTestWeb1,Tumour Necrosis in Response to Pre-Operative Therapy,Percentage (specify)12
+pathTestWeb1,Percentage (specify),12
+pathTestWeb1,TCategoryPathological,pT1 Tumour 8 cm or less in greatest dimension
+pathTestWeb1,NCategoryPathological,pN0 No regional lymph node metastasis
+pathTestWeb1,MCategoryPathological,pM1b Other distant sites
+pathTestWeb1,(y) prefix,No
+pathTestWeb1,UICC TNM (8th edition),"pT1, N0, M1b"
+pathTestWeb1,MorphologySNOMED,M92410 Chondromyxoid fibroma
+lisfeed1,Procedure,Ampullectomy
+lisfeed1,Tumor Site (Note A),Intra-ampullarysubtype
+lisfeed1,Subtype of Intra-ampullary Tumor,Ampullary ductal (pancreaticobiliary-type)
+lisfeed1,Histologic Type (Note B),Tubular adenocarcinoma with mixed features
+lisfeed1,Histologic Grade (Note C),"G2, moderately differentiated"
+lisfeed1,Tumor Size (Note D),Greatest dimension in Centimeters (cm)4
+lisfeed1,Greatest dimension in Centimeters (cm),4
+lisfeed1,Additional Dimension in Centimeters (cm),2
+lisfeed1,Additional Dimension in Centimeters (cm),1
+lisfeed1,Tumor Size,4 x 2 x 1 Centimeters (cm)
+lisfeed1,Tumor Extent,Carcinoma in situ / high-grade dysplasia
+lisfeed1,Tumor Extent,Invades into duodenal submucosa
+lisfeed1,Tumor Extent,Extends into periduodenal tissue
+lisfeed1,Lymphovascular Invasion (Note D),Present
+lisfeed1,Margin Status for Invasive Carcinoma,Invasive carcinoma present at margin
+lisfeed1,Margin(s) Involved by Invasive Carcinoma,Pancreatic ductcomment about pancreas
+lisfeed1,Margin Status for Dysplasia and Intraepithelial Neoplasia,High-grade dysplasia present at margin
+lisfeed1,Margin(s) Involved by High-Grade Dysplasia,Distal (duodenal or jejunal)jejunal
+lisfeed1,Regional Lymph Node Status,Not applicable (no regional lymph nodes submitted or found)
+lisfeed1,"Distant Site(s) Involved, if applicable",Liveralso involved
+lisfeed1,TNM Descriptors,m (multiple primary tumors)
+lisfeed1,pT Category,"pT3b: Tumor extends more than 0.5 cm into the pancreas, or extends into peripancreatic tissue or periduodenal tissue or duodenal serosa without involvement of the celiac axis or superior mesenteric artery"
+lisfeed1,pN Category,pN not assigned (no nodes submitted or found)
+lisfeed1,pM Category (required only if confirmed pathologically),pM1: Distant metastasis
+lisfeed1,Additional Findings,None identified
+lisfeed1,Ancillary Studies (Note G),Not performed
+bicr-69,Procedure (Note A),Excision (less than total mastectomy)
+bicr-69,Specimen Laterality,Right
+bicr-69,Histologic Type (Note C),No residual invasive carcinoma
+bicr-69,Histologic Grade (Nottingham Histologic Score) (Note D),Not applicable (no residual carcinoma or microinvasion only)
+bicr-69,Tumor Size (Note E),No residual invasive carcinoma
+bicr-69,Ductal Carcinoma In Situ (DCIS) (Note G),Not identified
+bicr-69,"Tumor Extent (required only if skin, nipple, or skeletal muscle are present and involved)","Not applicable (skin, nipple, and skeletal muscle are absent OR are uninvolved)"
+bicr-69,Lymphatic and / or Vascular Invasion (Note I),Not identified
+bicr-69,Treatment Effect in the Breast (Note K),No known presurgical therapy
+bicr-69,Treatment Effect in the Lymph Nodes (required if nodes are submitted and it is known that the patient had presurgical therapy),Not applicable
+bicr-69,Margin Status for Invasive Carcinoma (required only if residual invasive carcinoma is present in specimen),Not applicable (residual invasive carcinoma in specimen is absent)
+bicr-69,Margin Status for DCIS (required only if DCIS is present in specimen),Not applicable (no DCIS in specimen)
+bicr-69,Regional Lymph Node Status,Not applicable (no regional lymph nodes submitted or found)
+bicr-69,total number of involved  lymph nodes with at leasts (itc's not incluced),0
+bicr-69,total number of involved  lymph nodes exact only (itc's not incluced),0
+bicr-69,is at least used,no
+bicr-69,LN count for alert,0
+bicr-69,other and cbd for staging,yes
+bicr-69,"Distant Site(s) Involved, if applicable",Not applicable
+bicr-69,Breast Biomarker Testing Performed on Previous Biopsy,Estrogen Receptor (ER)
+bicr-69,Breast Biomarker Testing Performed on Previous Biopsy,Progesterone Receptor (PgR)
+bicr-69,Breast Biomarker Testing Performed on Previous Biopsy,HER2 (by immunohistochemistry)
+bicr-69,Breast Biomarker Testing Performed on Previous Biopsy,HER2 (by in situ hybridization)
+bicr-69,Estrogen Receptor (ER) Status,Positive (greater than 10% of cells demonstrate nuclear positivity)
+bicr-69,Progesterone Receptor (PgR) Status,Positive
+bicr-69,HER2 (by immunohistochemistry),Negative (Score 1+)#
+bicr-69,HER2 (by in situ hybridization),Negative (not amplified)
+bicr-69,Modified Classification (required only if applicable),Not applicable
+bicr-69,pT Category,pT1 (subcategory cannot be determined)
+bicr-69,T Suffix (required only if applicable),Not applicable
+bicr-69,pN Category,pN0 (i+): ITCs only (malignant cell clusters no larger than 0.2 mm) in regional lymph node(s)
+bicr-69,N Suffix (required only if applicable),Not applicable
+bicr-69,pM Category (required only if confirmed pathologically),Not applicable - pM cannot be determined from the submitted specimen(s)
+KC9970,SpecimenNature,Not known
+KC9970,DiagnosisIcdPathological,SCC
+KC9970,TumourLateralityPathological,Not known
+KC9970,SynchronousTumourIndicator,Not known
+KC9970,ExcisionMargin,Tumour reaches excision margin
+KC9970,NeoadjuvantTherapyIndicator,Not Known
+KC9970,TnmCodingEdition,1 UICC
+KC9970,TnmVersionNumberPathological,8
+KC9970,COSDReportedDataset,TRUE
+KC9970,ClarksLevelIvIndicator,Cannot be assessed
+KC9970,pT3 invasion,Yes
+KC9970,pT4 invasion,No
+KC9970,PathologyInvestigationType,Excision (diagnostic)
+KC9970,GradeOfDifferentiationPathological,Moderately differentiated
+KC9970,CancerVascularOrLymphaticInvasion,Present
+KC9970,PerineuralInvasion,Present
+KC9970,ExcisionMarginCircumferential,Not known
+KC9970,SkinCancerPerineuralInvasionIndicator,>=0.1 mm
+KC9970,MaximumDimensionDiameterOfLesion,Less than or equal to 20mm
+KC9970,LesionThicknessIndicator,Greater than 2mm but less than or equal to 4mm
+KC9970,Specimen Type,Excision (diagnostic)
+KC9970,Maximum Dimension of Lesion (mm),Specify in mm3
+KC9970,LesionSizePathological,3
+KC9970,Subtype,Spindle/sarcomatoid
+KC9970,Grade,Moderately differentiated
+KC9970,Thickness,>2-4 mm
+KC9970,Level of Invasion,Dermis
+KC9970,Perineural Invasion,Present
+KC9970,"Perineural Invasion, Criteria to Upstage to pT3",Yes
+KC9970,Features,Greater than or equal to 0.1 mm
+KC9970,Lymphovascular Invasion,Present
+KC9970,Peripheral,Involved
+KC9970,Deep,Involved
+KC9970,Maximum Dimension/Diameter of Lesion,=< 20 mm
+KC9970,Basis of Diameter Measurement,Clinical
+KC9970,TCategoryPathological,pT3 Tumour greater than 40 mm in greatest dimension or minor bone erosion or perineual invasion or deep invasion*
+KC9970,"Pathological Stage (TNM 8, UICC)",pT3 Tumour greater than 40 mm in greatest dimension or minor bone erosion or perineual invasion or deep invasion*
+KC9970,SpecimenNature,Not known
+KC9970,PathologyInvestigationType,Hysterectomy
+KC9970,DiagnosisIcdPathological,Cervix - hysterectomy
+KC9970,TumourLateralityPathological,Not applicable
+KC9970,ExcisionMargin,Tumour reaches excision margin
+KC9970,SynchronousTumourIndicator,Not known
+KC9970,TCategoryPathological,T1b2
+KC9970,TnmCodingEdition,1 UICC
+KC9970,TnmVersionNumberPathological,8
+KC9970,NumberOfNodesExamined,4
+KC9970,NumberOfNodesPositive,3
+KC9970,NeoadjuvantTherapyIndicator,Not known
+KC9970,ExcisionMarginPreInvasive,Not Assessable
+KC9970,ExtranodalSpread,Not Assessable
+KC9970,COSDReportedDataset,TRUE
+KC9970,GradeOfDifferentiationPathological,Well/Grade 1
+KC9970,ThicknessUninvolvedStroma,1
+KC9970,VaginalInvolvement,Yes
+KC9970,SentinelLymphNodesExaminedNumber,2
+KC9970,SentinelLymphNodesPositiveNumber,1
+KC9970,PerineuralInvasion,Not known
+KC9970,ExcisionMarginCircumferential,Not known
+KC9970,ParacervicalOrParametrialInvolvement,Yes
+KC9970,OmentumInvolvement,Not Assessable
+KC9970,NodesExaminedNumberLeftPelvic,1
+KC9970,NodesPositiveNumberLeftPelvic,1
+KC9970,NodesExaminedNumberRightPelvic,1
+KC9970,NodesPositiveNumberRightPelvic,1
+KC9970,Length (mm),2.5
+KC9970,Differentiation/Grade,Well/Grade 1
+KC9970,Maximum Horizontal Dimension (mm),1.5
+KC9970,Minimum Thickness of Uninvolved Cervical Stroma (minimum tumour-free rim) (mm),1
+KC9970,Closest Radial Resection Margin (include paracervical tissue thickness) (mm),1
+KC9970,Vaginal Involvement,Yes
+KC9970,Parametrial Involvement,Yes
+KC9970,Number of Nodes Sampled,2
+KC9970,Number of Nodes Involved,1
+KC9970,Total Number,1
+KC9970,Number Involved,1
+KC9970,Total Number,1
+KC9970,Number Involved,1
+KC9970,Provisional FIGO Stage 2018,IB2  Invasive carcinoma >2 cm and <4 cm in greatest dimension
+JeanABC,SpecimenNature,Not known
+JeanABC,GradeOfDifferentiationPathological,Grade of differentiation is not appropriate or cannot be assessed
+JeanABC,CancerVascularOrLymphaticInvasion,No - vascular/lymphatic invasion not present
+JeanABC,ExcisionMargin,Tumour reaches excision margin
+JeanABC,SynchronousTumourIndicator,Not known
+JeanABC,NeoadjuvantTherapyIndicator,Not known
+JeanABC,COSDReportedDataset,TRUE
+JeanABC,PathologyInvestigationType,En-bloc resection
+JeanABC,LesionSizePathological,45.1
+JeanABC,DiagnosisIcdPathological,Parathyroid carcinoma
+JeanABC,P16TestingIndicator,Not Performed/Not Known
+JeanABC,Hpv-ishTesting,Not Performed/Not Known
+JeanABC,NumberOfNodesPositive,1
+JeanABC,NumberOfNodesExamined,4
+JeanABC,TnmCodingEdition,1 UICC
+JeanABC,TnmVersionNumberPathological,8
+JeanABC,PerineuralInvasion,Not Identified
+JeanABC,ExcisionMarginCircumferential,Not known
+JeanABC,ExtracapsularSpreadExtranodalExtension,Not assessable
+JeanABC,NodesPositiveNumberLeft,1
+JeanABC,NodesPositiveNumberRight,1
+JeanABC,Ebv-ishTesting,Not Performed/Not Known
+JeanABC,Clinical Information Provided,Hyperparathyroidism
+JeanABC,Clinical Information Provided,Secondary
+JeanABC,Operative Procedure,"Parathyroidectomy, en bloc with thyroid lobe"
+JeanABC,Specimen(s) Submitted,Thyroid gland
+JeanABC,Specimen(s) Submitted,Right
+JeanABC,Tumour Site,Parathyroid
+JeanABC,Side of Parathyroid,Mediastinal
+JeanABC,Parathyroid Alone (mg),2.3
+JeanABC,Parathyroid with Other Structure(s) (mg),1.7
+JeanABC,Maximum Tumour Dimension (mm),Maximum tumour dimension (largest tumour) (mm)6
+JeanABC,Maximum tumour dimension (largest tumour) (mm),6
+JeanABC,Maximum Tumour Dimensions,6 mm
+JeanABC,Histological Tumour Type,Atypical parathyroid tumour
+JeanABC,Histological Tumour Grade,High grade
+JeanABC,Extent of Invasion,Confined to parathyroid without invasion through tumour capsule
+JeanABC,Lymphovascular Invasion,Not identified
+JeanABC,Perineural Invasion,Not identified
+JeanABC,Necrosis,Not identified
+JeanABC,Mitotic Count,Specify mitotic count (2 mm2)3.9
+JeanABC,Margin Status,"Involved, abutting tissue edge (R1 resection)"
+JeanABC,Number of Lymph Nodes Examined,4
+JeanABC,Positive Lymph Nodes,Number of positive lymph nodes1
+JeanABC,Number of positive lymph nodes,1
+JeanABC,Histologically Confirmed Distant Metastases,Not assessed
+JeanABC,TNM Descriptors (only if applicable) (select all that apply),m multiple primary tumours
+JeanABC,TCategoryPathological,T1 Localised to the parathyroid gland with extension limited to soft tissue
+JeanABC,NCategoryPathological,N1 Regional lymph node metastasis
+JeanABC,MCategoryPathological,M0 No distant metastasis
+JeanABC,Pathological Staging (AJCC TNM 8th edition),"(m)T1, N1, M0"
+JeanBCD,Procedure,Right hemicolectomy
+JeanBCD,Tumor Site (Note A),Proximal half of appendixffdsfd
+JeanBCD,Mitotic Rate (required only when Ki-67 labeling index is not reported)#,Specify number of mitoses per 2 mm23
+JeanBCD,Specify number of mitoses per 2 mm2,3
+JeanBCD,Ki-67 Labeling Index (required only when mitotic rate is not reported),3% to 20%
+JeanBCD,"Histologic Type and Grade# (Notes B, C)","G2, well-differentiated neuroendocrine tumor"
+JeanBCD,Tumor Size (Note D),Greatest dimension in Centimeters (cm)4
+JeanBCD,Greatest dimension in Centimeters (cm),4
+JeanBCD,Tumor Size,4 Centimeters (cm)
+JeanBCD,Tumor Extent,Invades submucosa
+JeanBCD,Lymphatic and / or Vascular Invasion,Not identified
+JeanBCD,Margin Status,All margins negative for tumor
+JeanBCD,Regional Lymph Node Status,Regional lymph nodes present
+JeanBCD,Regional Lymph Node Status,Tumor present in regional lymph node(s)
+JeanBCD,Number of Lymph Nodes with Tumor,Exact number (specify)1
+JeanBCD,Exact number involved,1
+JeanBCD,Number of Lymph Nodes Examined,Exact number (specify)3
+JeanBCD,Exact number examined,3
+JeanBCD,"Distant Site(s) Involved, if applicable",Liverfdfds
+JeanBCD,Modified Classification (required only if applicable),Not applicable
+JeanBCD,pT Category#,pT2: Tumor greater than 2 cm but less than or equal to 4 cm in greatest dimension
+JeanBCD,T Suffix (required only if applicable),(m) multiple primary synchronous tumors in a single organ
+JeanBCD,pN Category,pN1:Tumor involvement of regional lymph node(s)
+JeanBCD,pM Category (required only if confirmed pathologically),pM1a: Microscopic confirmation of metastasis confined to liver
+JeanCDE,Test(s) Performed (Note A),Estrogen Receptor (ER) Status (Note B)
+JeanCDE,Estrogen Receptor (ER) Status,Low Positive (1-10% of cells with nuclear positivity)##
+JeanCDE,Average Intensity of Staining,Moderate
+JeanCDE,Status of Internal Controls,Internal control cells present and stain as expected
+JeanCDE,Test Type,Laboratory-developed test
+JeanCDE,Primary Antibody,6F11
+JeanCDE,Cold Ischemia and Fixation Times,Do not meet requirements specified in latest version of the ASCO / CAP Guidelines
+bphyll-6,Procedure,Total mastectomy (including nipple-sparing and skin-sparing mastectomy)
+bphyll-6,Specimen Laterality,Left
+bphyll-6,Tumor Size,Cannot be determined (explain)lijl
+bphyll-6,Histologic Type (Note A),"Phyllodes tumor, malignant"
+bphyll-6,Stromal Cellularity (Note B),Moderate (some overlapping stromal nuclei)
+bphyll-6,Stromal Atypia (Note C),"Marked (marked nuclear pleomorphism, hyperchromasia, and irregular nuclear contours)"
+bphyll-6,Stromal Overgrowth (Note D),Cannot be determined
+bphyll-6,Mitotic Rate (Note E),Specify number of mitoses per 10 high power fields1
+bphyll-6,Specify number of mitoses per 10 high power fields,1
+bphyll-6,Histologic Tumor Border,Infiltrative (permeative)
+bphyll-6,Infiltrative Extent,Focal
+bphyll-6,Malignant Heterologous Elements (Note F),Liposarcoma (excluding well-differentiated liposarcoma)
+bphyll-6,MHE malignant,yes
+bphyll-6,benign or bordline features,not malignant
+bphyll-6,mitotic rate not malignant,yes
+bphyll-6,Not malignant for alert,yes
+bphyll-6,Margin Status for Phyllodes Tumor,Cannot be determined (explain)..
+bphyll-6,Regional Lymph Node Status,Not applicable (no regional lymph nodes submitted or found)
+bphyll-6,"Distant Site(s) Involved, if applicable",Not applicable
+bphyll-6,"Pathologic Stage Classification (pTNM, AJCC 8th Edition) (required only if the tumor is malignant)",Tumor is malignant
+bphyll-6,TNM Descriptors,Not applicable
+bphyll-6,pT Category,pT4: Tumor more than 15 cm in greatest dimension
+bphyll-6,pN Category,pN not assigned (no nodes submitted or found)
+bphyll-6,pM Category (required only if confirmed pathologically),pM1: Distant metastasis
+KCV9-4458,SPECIMEN,ASpecimen A
+KCV9-4458,SPECIMEN,ESpecimen E
+KCV9-4458,PathologyInvestigationType,Closed (needle) biopsy
+KCV9-4458,SpecimenNature,Not known
+KCV9-4458,DiagnosisIcdPathological,Bone Tumour
+KCV9-4458,GradeOfDifferentiationPathological,Well differentiated
+KCV9-4458,CancerVascularOrLymphaticInvasion,Not known
+KCV9-4458,ExcisionMargin,Not known
+KCV9-4458,SynchronousTumourIndicator,Not known
+KCV9-4458,NeoadjuvantTherapyIndicator,Not known
+KCV9-4458,COSDReportedDataset,TRUE
+KCV9-4458,TnmVersionNumberPathological,8
+KCV9-4458,TnmCodingEdition,1 UICC
+KCV9-4458,TumourLateralityPathological,Left
+KCV9-4458,LesionSizePathological,1
+KCV9-4458,Tumour Size,1 mm
+KCV9-4458,Histological Diagnosis of Tumour Type,Chondrogenic Tumours
+KCV9-4458,Chondrogenic Tumours,Osteochondroma
+KCV9-4458,Tumour Grade,Low grade (G1)
+KCV9-4458,GeneticConfirmationIndicator,"No, not confirmed"
+KCV9-4458,Tumour Necrosis in Response to Pre-Operative Therapy,Not applicable
+KCV9-4458,TCategoryPathological,pT0 No evidence of primary tumour
+KCV9-4458,NCategoryPathological,pNX Regional lymph nodes cannot be assessed
+KCV9-4458,MCategoryPathological,pM0 No distant metastasis
+KCV9-4458,(y) prefix,No
+KCV9-4458,UICC TNM (8th edition),"pT0, NX, M0"
+KCV9-4458,MorphologySNOMED,M92100 Osteochondroma
+KCV9-4458,SPECIMEN,BSpecimen B
+KCV9-4458,SpecimenNature,Not known
+KCV9-4458,PathologyInvestigationType,Excision
+KCV9-4458,SynchronousTumourIndicator,Not known
+KCV9-4458,NumberOfNodesExamined,1
+KCV9-4458,NumberOfNodesPositive,1
+KCV9-4458,ExcisionMargin,Tumour reaches excision margin
+KCV9-4458,GradeOfDifferentiationPathological,Well differentiated
+KCV9-4458,DistanceToMargin,0
+KCV9-4458,TnmCodingEdition,2 AJCC
+KCV9-4458,TnmVersionNumberPathological,8
+KCV9-4458,COSDReportedDataset,TRUE
+KCV9-4458,Clinical Presentation,Screening
+KCV9-4458,Blank line,Blank line
+KCV9-4458,NeoadjuvantTherapyIndicator,Yes
+KCV9-4458,History of Neo-Adjuvant Chemotherapy,Yes
+KCV9-4458,Breast Specimen Type,Wide local excision
+KCV9-4458,Breast Specimen Type,Diagnostic excision biopsy
+KCV9-4458,Lymph Nodes,Axillary node sampling
+KCV9-4458,TumourLateralityPathological,Right
+KCV9-4458,Blank line,Blank line
+KCV9-4458,Residual Invasive Tumour Type,No special type1
+KCV9-4458,LesionSizePathological,1
+KCV9-4458,WholeTumourInvasiveDcisSize,1
+KCV9-4458,MultifocalTumourIndicatorBreast,Localised residual tumour
+KCV9-4458,Histological Grade,1
+KCV9-4458,DCIS Grade,DCIS absent
+KCV9-4458,Lymphovascular Invasion,Present
+KCV9-4458,Total Present,1
+KCV9-4458,Number Positive,1
+KCV9-4458,Blank line,Blank line
+KCV9-4458,At Margin,Superior
+KCV9-4458,Blank line,Blank line
+KCV9-4458,TCategoryPathological,N/A
+KCV9-4458,NCategoryPathological,pNX Cannot be assessed
+KCV9-4458,Pathological Stage,"(y)N/A, NX"
+KCV9-4458,Blank line,Blank line
+KCV9-4458,Representative Tumour Block,testing notes

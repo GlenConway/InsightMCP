@@ -1,0 +1,33 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "InsightMCP: Debug",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/InsightMCP/bin/Debug/net9.0/InsightMCP.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/InsightMCP",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "name": "InsightMCP: Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/InsightMCP.Tests/bin/Debug/net9.0/InsightMCP.Tests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/InsightMCP.Tests",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }
+    ]
+}
