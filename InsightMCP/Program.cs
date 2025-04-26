@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using ModelContextProtocol.AspNetCore;
-
+using ModelContextProtocol.Server;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure logging for MCP debugging
@@ -23,7 +23,5 @@ builder.Services.AddHttpClient();
 builder.Services.AddSingleton<ReportService>();
 
 var app = builder.Build();
-
-app.UseMcpServer();
 
 app.Run();
