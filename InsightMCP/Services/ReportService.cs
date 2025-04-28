@@ -17,6 +17,7 @@ public class ReportService : IReportService
 {
     private readonly string _reportsPath;
     private readonly string _questionsAndAnswersPath;
+    private readonly string _resultsPath;
     private readonly List<Report> _reports;
 
     /// <summary>
@@ -24,10 +25,12 @@ public class ReportService : IReportService
     /// </summary>
     /// <param name="reportsPath">Path to the reports CSV file. Defaults to "reports.csv"</param>
     /// <param name="questionsAndAnswersPath">Path to the Q&A CSV file. Defaults to "q_and_a.csv"</param>
-    public ReportService(string reportsPath = "reports.csv", string questionsAndAnswersPath = "q_and_a.csv")
+    /// <param name="resultsPath">Path to the results CSV file. Defaults to "results.csv"</param>
+    public ReportService(string reportsPath = "reports.csv", string questionsAndAnswersPath = "q_and_a.csv", string resultsPath = "results.csv")
     {
         _reportsPath = reportsPath;
         _questionsAndAnswersPath = questionsAndAnswersPath;
+        _resultsPath = resultsPath;
         _reports = LoadReportsWithQuestionsAndAnswers().GetAwaiter().GetResult();
     }
 
@@ -48,6 +51,19 @@ public class ReportService : IReportService
     public Task<Report?> GetReportAsync(string caseNumber)
     {
         return Task.FromResult(_reports.FirstOrDefault(r => r.CaseNumber == caseNumber));
+    }
+
+    /// <summary>
+    /// Retrieves all pathology reports.
+    /// </summary>
+    /// <returns>A collection of Result objects</returns>
+    public async Task<IEnumerable<Result>> GetPathologyReportsAsync()
+    {
+        using var reader = new StreamReader(_resultsPath);
+        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+        var results = await csv.GetRecordsAsync<Result>().ToListAsync();
+        
+        return results;
     }
 
     /// <summary>
