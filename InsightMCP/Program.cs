@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure logging for MCP debugging
-builder.Logging.SetMinimumLevel(LogLevel.Warning);
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 builder.Logging.AddDebug();
 builder.Logging.AddFilter("ModelContextProtocol", LogLevel.Debug);
 builder.Logging.AddConsole();

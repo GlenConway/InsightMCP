@@ -1,8 +1,8 @@
 using InsightMCP.Services;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
-
 namespace InsightMCP.Tests;
 public class ReportServiceTests : IDisposable
 {
@@ -27,16 +27,69 @@ public class ReportServiceTests : IDisposable
         var serviceWithResults = new ReportService(_testResultsPath);
 
         // Act
-        var reports = (await serviceWithResults.GetReportsAsync()).ToList();
+        var reports = (await serviceWithResults.GetReportsAsync()).Items.ToList();
 
         // Assert
         Assert.NotNull(reports);
-        Assert.Equal(2, reports.Count);
+        Assert.Equal(2, reports.Count());
         Assert.Contains(reports, r => r.CaseNumber == "result1");
         Assert.Contains(reports, r => r.ReportLOINCCode == "12345-6");
         Assert.Contains(reports, r => r.ReportLOINCName == "Test LOINC Name");
         Assert.Contains(reports, r => r.ProtocolName == "Test Protocol Name");
         Assert.Contains(reports, r => r.ReportText == "Result Question1: Result Answer1");
+    }
+
+    [Fact]
+    public async Task GetReportsAsync_ShouldReturnPagedResults()
+    {
+        // Arrange
+        CreateTestResultsFile();
+        var serviceWithResults = new ReportService(_testResultsPath);
+        const int pageSize = 1;
+
+        // Act
+        var firstPage = await serviceWithResults.GetReportsAsync(pageSize);
+        var secondPage = await serviceWithResults.GetReportsAsync(pageSize, firstPage.NextCursor);
+
+        // Assert
+        Assert.NotNull(firstPage);
+        Assert.NotNull(secondPage);
+        Assert.Single(firstPage.Items);
+        Assert.Single(secondPage.Items);
+        Assert.NotEqual(firstPage.Items.First().CaseNumber, secondPage.Items.First().CaseNumber);
+        Assert.True(firstPage.HasMore);
+        Assert.Equal(2, firstPage.TotalCount);
+    }
+
+    [Fact]
+    public async Task GetReportsAsync_LastPage_HasNoNextCursor()
+    {
+        // Arrange
+        CreateTestResultsFile();
+        var serviceWithResults = new ReportService(_testResultsPath);
+        const int pageSize = 2;
+
+        // Act
+        var page = await serviceWithResults.GetReportsAsync(pageSize);
+
+        // Assert
+        Assert.NotNull(page);
+        Assert.Equal(2, page.Items.Count());
+        Assert.False(page.HasMore);
+        Assert.Null(page.NextCursor);
+    }
+
+    [Fact]
+    public async Task GetReportsAsync_WithInvalidCursor_ThrowsException()
+    {
+        // Arrange
+        CreateTestResultsFile();
+        var serviceWithResults = new ReportService(_testResultsPath);
+        const string invalidCursor = "invalid_cursor";
+
+        // Act & Assert
+        await Assert.ThrowsAsync<FormatException>(() => 
+            serviceWithResults.GetReportsAsync(cursor: invalidCursor));
     }
 
     private void CreateTestResultsFile()
@@ -49,8 +102,6 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
         File.WriteAllText(_testResultsPath, content);
     }
 
-
-
     [Fact]
     public async Task LoadRealCsvFiles_ShouldSuccessfullyParseAndLoad()
     {
@@ -61,11 +112,115 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
         var realService = new ReportService(_realResultsPath);
 
         // Act
-        var reports = (await realService.GetReportsAsync()).ToList();
+        var reports = (await realService.GetReportsAsync()).Items.ToList();
 
         // Assert
         Assert.NotNull(reports);
         Assert.NotEmpty(reports);
+    }
+
+    [Fact]
+    public async Task GetDistinctProtocolNamesAsync_ShouldReturnUniqueProtocolNames()
+    {
+        // Arrange
+        CreateTestResultsFile();
+        var serviceWithResults = new ReportService(_testResultsPath);
+
+        // Act
+        var protocolNames = await serviceWithResults.GetDistinctProtocolNamesAsync();
+
+        // Assert
+        Assert.NotNull(protocolNames);
+        var namesList = protocolNames.ToList();
+        Assert.Equal(2, namesList.Count());
+        Assert.Contains("Test Protocol Name", namesList);
+        Assert.Contains("Another Protocol Name", namesList);
+        Assert.True(namesList.SequenceEqual(namesList.OrderBy(n => n)), "Protocol names should be ordered alphabetically");
+    }
+
+    [Fact]
+    public async Task GetReportsByProtocolAsync_ShouldReturnFilteredReports()
+    {
+        // Arrange
+        CreateTestResultsFile();
+        var serviceWithResults = new ReportService(_testResultsPath);
+
+        // Act
+        var reports = (await serviceWithResults.GetReportsByProtocolAsync("Test Protocol Name")).Items.ToList();
+
+        // Assert
+        Assert.NotNull(reports);
+        Assert.Single(reports);
+        Assert.All(reports, r => Assert.Equal("Test Protocol Name", r.ProtocolName));
+    }
+
+    [Fact]
+    public async Task GetReportsByProtocolAsync_ShouldBeCaseInsensitive()
+    {
+        // Arrange
+        CreateTestResultsFile();
+        var serviceWithResults = new ReportService(_testResultsPath);
+
+        // Act
+        var reports = (await serviceWithResults.GetReportsByProtocolAsync("TEST PROTOCOL NAME")).Items.ToList();
+
+        // Assert
+        Assert.NotNull(reports);
+        Assert.Single(reports);
+        Assert.All(reports, r => Assert.Equal("Test Protocol Name", r.ProtocolName, StringComparer.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public async Task GetReportsByProtocolAsync_WithNonExistentProtocol_ShouldReturnEmptyList()
+    {
+        // Arrange
+        CreateTestResultsFile();
+        var serviceWithResults = new ReportService(_testResultsPath);
+
+        // Act
+        var pagedResult = await serviceWithResults.GetReportsByProtocolAsync("Non Existent Protocol");
+
+        // Assert
+        Assert.NotNull(pagedResult);
+        Assert.Empty(pagedResult.Items);
+        Assert.False(pagedResult.HasMore);
+        Assert.Null(pagedResult.NextCursor);
+        Assert.Equal(0, pagedResult.TotalCount);
+    }
+
+    [Fact]
+    public async Task GetReportsByProtocolAsync_ShouldProperlyPaginate()
+    {
+        // Arrange
+        CreateTestResultsFileWithMultipleProtocols();
+        var serviceWithResults = new ReportService(_testResultsPath);
+        const int pageSize = 1;
+        const string protocolName = "Test Protocol Name";
+
+        // Act
+        var firstPage = await serviceWithResults.GetReportsByProtocolAsync(protocolName, pageSize);
+        var secondPage = await serviceWithResults.GetReportsByProtocolAsync(protocolName, pageSize, firstPage.NextCursor);
+
+        // Assert
+        Assert.NotNull(firstPage);
+        Assert.NotNull(secondPage);
+        Assert.Single(firstPage.Items);
+        Assert.Single(secondPage.Items);
+        Assert.All(firstPage.Items.Concat(secondPage.Items), r => Assert.Equal(protocolName, r.ProtocolName));
+        Assert.NotEqual(firstPage.Items.First().CaseNumber, secondPage.Items.First().CaseNumber);
+        Assert.True(firstPage.HasMore);
+        Assert.False(secondPage.HasMore);
+    }
+
+    private void CreateTestResultsFileWithMultipleProtocols()
+    {
+        var content = @"CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer
+result1,12345-6,Test LOINC Name,Test Protocol Name,Result Question1,Result Answer1
+result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result Answer2
+result3,12345-6,Test LOINC Name,Test Protocol Name,Result Question3,Result Answer3";
+
+        Directory.CreateDirectory("TestData");
+        File.WriteAllText(_testResultsPath, content);
     }
 
     private void CreateRealSampleFiles()
@@ -74,7 +229,8 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
         {
             // Ensure the output directory exists
             var directory = Path.GetDirectoryName(_realResultsPath);
-            Directory.CreateDirectory(directory);
+            if (!string.IsNullOrEmpty(directory))
+                Directory.CreateDirectory(directory);
 
 
             // Create sample results.csv file with explicit Windows line endings

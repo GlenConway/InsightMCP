@@ -11,5 +11,5 @@ public class Report
 
     public required string ProtocolName { get; set; }
 
-    public string ReportText { get; set; }
+    public required string ReportText { get; set; }
 }
