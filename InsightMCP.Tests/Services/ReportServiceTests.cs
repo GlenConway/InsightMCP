@@ -36,8 +36,7 @@ public class ReportServiceTests : IDisposable
         Assert.Contains(reports, r => r.ReportLOINCCode == "12345-6");
         Assert.Contains(reports, r => r.ReportLOINCName == "Test LOINC Name");
         Assert.Contains(reports, r => r.ProtocolName == "Test Protocol Name");
-        Assert.Contains(reports, r => r.Question == "Result Question1");
-        Assert.Contains(reports, r => r.Answer == "Result Answer1");
+        Assert.Contains(reports, r => r.ReportText == "Result Question1: Result Answer1");
     }
 
     private void CreateTestResultsFile()
