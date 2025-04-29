@@ -15,8 +15,7 @@ builder.Logging.AddConsole();
 builder.Services
     .AddMcpServer()
     .WithHttpTransport()
-    .WithTools<ReportTools>()
-    .WithTools<TestTools>();
+    .WithTools<ReportTools>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IReportService, ReportService>();

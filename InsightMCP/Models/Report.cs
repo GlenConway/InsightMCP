@@ -4,24 +4,22 @@ namespace InsightMCP.Models;
 
 public class Report
 {
-    [Name("Case Number")]
+    [Name("CaseNumber")]
     public required string CaseNumber { get; set; }
-    
-    [Name("Protocol")]
-    public required string Protocol { get; set; }
-    
-    [Name("Protocol Source")]
-    public required string ProtocolSource { get; set; }
 
-    [Ignore]
-    public List<QuestionAndAnswer> QuestionsAndAnswers { get; set; } = new();
+    [Name("ReportLoincCode")]
+    public required string ReportLOINCCode { get; set; }
 
-    [Ignore]
-    public string ReportText
-    {
-        get
-        {
-            return string.Join(Environment.NewLine, QuestionsAndAnswers.Select(qa => qa.Text));
-        }
-    }
+    [Name("ReportLoincName")]
+    public required string ReportLOINCName { get; set; }
+
+    [Name("Protocol Name")]
+    public required string ProtocolName { get; set; }
+
+    [Name("Question")]
+    public required string Question { get; set; }
+
+    [Name("Answer")]
+    public required string Answer { get; set; }
+
 }

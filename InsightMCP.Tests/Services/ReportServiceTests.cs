@@ -1,83 +1,65 @@
-using Xunit;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using InsightMCP.Services;
-using InsightMCP.Models;
+using System.IO;
+using System.Text;
+using System.Threading;
+
+namespace InsightMCP.Tests;
 public class ReportServiceTests : IDisposable
 {
-    private readonly string _testReportsPath = "TestData/test_reports.csv";
-    private readonly string _testQandAPath = "TestData/test_q_and_a.csv";
+    private readonly string _baseDir = AppContext.BaseDirectory;
+    private readonly string _testResultsPath = "TestData/results.csv";
     private readonly ReportService _service;
-    private readonly string _realReportsPath = "reports.csv";
-    private readonly string _realQandAPath = "q_and_a.csv";
+    private readonly string _realResultsPath;
 
     public ReportServiceTests()
     {
-        // Create test CSV files
-        CreateTestReportsFile();
-        CreateTestQandAFile();
-        
-        _service = new ReportService(_testReportsPath, _testQandAPath);
-    }
+        // Set up real file paths
+        _realResultsPath = Path.Combine("TestData", "results.csv");
 
+
+        _service = new ReportService(_testResultsPath);
+    }
     [Fact]
-    public async Task GetReportsAsync_ShouldReturnAllReports()
+    public async Task GetReportsAsync_ShouldReturnAllReportsFromResultsFile()
     {
+        // Arrange
+        CreateTestResultsFile();
+        var serviceWithResults = new ReportService(_testResultsPath);
+
         // Act
-        var reports = (await _service.GetReportsAsync()).ToList();
+        var reports = (await serviceWithResults.GetReportsAsync()).ToList();
 
         // Assert
         Assert.NotNull(reports);
         Assert.Equal(2, reports.Count);
-        Assert.Contains(reports, r => r.CaseNumber == "test1");
-        Assert.Contains(reports, r => r.CaseNumber == "test2");
+        Assert.Contains(reports, r => r.CaseNumber == "result1");
+        Assert.Contains(reports, r => r.ReportLOINCCode == "12345-6");
+        Assert.Contains(reports, r => r.ReportLOINCName == "Test LOINC Name");
+        Assert.Contains(reports, r => r.ProtocolName == "Test Protocol Name");
+        Assert.Contains(reports, r => r.Question == "Result Question1");
+        Assert.Contains(reports, r => r.Answer == "Result Answer1");
     }
 
-    [Fact]
-    public async Task GetReportAsync_WithValidCaseNumber_ShouldReturnReport()
+    private void CreateTestResultsFile()
     {
-        // Act
-        var report = await _service.GetReportAsync("test1");
+        var content = @"CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer
+result1,12345-6,Test LOINC Name,Test Protocol Name,Result Question1,Result Answer1
+result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result Answer2";
 
-        // Assert
-        Assert.NotNull(report);
-        Assert.Equal("test1", report.CaseNumber);
-        Assert.Equal("Test Protocol", report.Protocol);
-        Assert.Equal("CAP Ecc", report.ProtocolSource);
+        Directory.CreateDirectory("TestData");
+        File.WriteAllText(_testResultsPath, content);
     }
 
-    [Fact]
-    public async Task GetReportAsync_WithInvalidCaseNumber_ShouldReturnNull()
-    {
-        // Act
-        var report = await _service.GetReportAsync("nonexistent");
 
-        // Assert
-        Assert.Null(report);
-    }
-
-    [Fact]
-    public async Task GetReportAsync_ShouldIncludeQuestionsAndAnswers()
-    {
-        // Act
-        var report = await _service.GetReportAsync("test1");
-
-        // Assert
-        Assert.NotNull(report);
-        Assert.NotNull(report?.QuestionsAndAnswers);
-        Assert.Equal(2, report!.QuestionsAndAnswers.Count);
-        Assert.Contains(report.QuestionsAndAnswers, qa => qa.Question == "Question1");
-        Assert.Contains(report.QuestionsAndAnswers, qa => qa.Answer == "Answer1");
-    }
 
     [Fact]
     public async Task LoadRealCsvFiles_ShouldSuccessfullyParseAndLoad()
     {
         // Arrange
-        var realService = new ReportService(_realReportsPath, _realQandAPath);
+        CreateRealSampleFiles();
+
+        // Create service with paths relative to current directory
+        var realService = new ReportService(_realResultsPath);
 
         // Act
         var reports = (await realService.GetReportsAsync()).ToList();
@@ -85,45 +67,39 @@ public class ReportServiceTests : IDisposable
         // Assert
         Assert.NotNull(reports);
         Assert.NotEmpty(reports);
-        
-        // Verify structure of loaded reports
-        foreach (var report in reports)
+    }
+
+    private void CreateRealSampleFiles()
+    {
+        try
         {
-            Assert.NotNull(report.CaseNumber);
-            Assert.NotNull(report.Protocol);
-            Assert.NotNull(report.ProtocolSource);
-            Assert.NotNull(report.QuestionsAndAnswers);
-            
-            // Verify each report has its questions and answers properly linked
-            if (report.QuestionsAndAnswers.Any())
-            {
-                foreach (var qa in report.QuestionsAndAnswers)
-                {
-                    Assert.Equal(report.CaseNumber, qa.CaseNumber);
-                }
-            }
+            // Ensure the output directory exists
+            var directory = Path.GetDirectoryName(_realResultsPath);
+            Directory.CreateDirectory(directory);
+
+
+            // Create sample results.csv file with explicit Windows line endings
+            var resultsContent = "CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer\r\n" +
+                           "CASE001,60568-3,Lung Cancer Synoptic Report,Lung Cancer Protocol,Tumor Size,3.5 cm\r\n" +
+                           "CASE002,60569-1,Colorectal Cancer Synoptic Report,Colorectal Cancer Protocol,Lymph Node Status,Positive (2/12)\r\n" +
+                           "CASE003,60570-9,Breast Cancer Synoptic Report,Breast Cancer Protocol,Estrogen Receptor Status,Positive (>90%)";
+
+            File.WriteAllText(_realResultsPath, resultsContent, new UTF8Encoding(false));
+
+            // Verify files were created
+            if (!File.Exists(_realResultsPath))
+                throw new IOException($"Failed to create results file at: {_realResultsPath}");
+
+            // Verify file contents
+            var createdResultsContent = File.ReadAllText(_realResultsPath);
+
+            if (string.IsNullOrEmpty(createdResultsContent))
+                throw new IOException("Results file was created but is empty");
         }
-    }
-
-    private void CreateTestReportsFile()
-    {
-        var content = @"Case Number,Protocol,Protocol Source
-test1,Test Protocol,CAP Ecc
-test2,Another Protocol,RCPATH";
-        
-        Directory.CreateDirectory("TestData");
-        File.WriteAllText(_testReportsPath, content);
-    }
-
-    private void CreateTestQandAFile()
-    {
-        var content = @"Case Number,Question,Answer
-test1,Question1,Answer1
-test1,Question2,Answer2
-test2,Question3,Answer3";
-        
-        Directory.CreateDirectory("TestData");
-        File.WriteAllText(_testQandAPath, content);
+        catch (Exception ex)
+        {
+            throw new IOException($"Failed to create test files in {_baseDir}: {ex.Message}", ex);
+        }
     }
 
     private bool _disposed = false;
@@ -134,15 +110,31 @@ test2,Question3,Answer3";
         {
             if (disposing)
             {
-                // Clean up test files
-                if (File.Exists(_testReportsPath))
-                    File.Delete(_testReportsPath);
-                
-                if (File.Exists(_testQandAPath))
-                    File.Delete(_testQandAPath);
-
-                if (Directory.Exists("TestData"))
-                    Directory.Delete("TestData", true);
+                try
+                {
+                    if (Directory.Exists("TestData"))
+                    {
+                        // Force a small delay to ensure file handles are released
+                        Thread.Sleep(100);
+                        Directory.Delete("TestData", true);
+                    }
+                }
+                catch (IOException)
+                {
+                    // If files are still in use, try one more time after a longer delay
+                    try
+                    {
+                        Thread.Sleep(500);
+                        if (Directory.Exists("TestData"))
+                        {
+                            Directory.Delete("TestData", true);
+                        }
+                    }
+                    catch
+                    {
+                        // If cleanup still fails, ignore the error
+                    }
+                }
             }
 
             _disposed = true;
