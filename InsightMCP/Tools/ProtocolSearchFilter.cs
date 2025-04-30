@@ -67,7 +67,7 @@ Pagination notes: To retrieve subsequent pages, pass the nextCursor value from t
             var allFilteredReports = new List<Report>();
             foreach (var protocolName in filteredProtocolNames)
             {
-                var reports = await _reportService.GetReportsByProtocolAsync(protocolName, int.MaxValue);
+                var reports = await _reportService.GetReportsByProtocolAsync(protocolName, int.MaxValue - 1);
                 allFilteredReports.AddRange(reports.Items);
             }
 

@@ -18,6 +18,7 @@ public class ReportService : IReportService
 {
     private readonly string _resultsPath;
     private List<Report>? _reports;
+    private List<Result>? _results;
 
     /// <summary>
     /// Initializes a new instance of the ReportService class and loads all data from CSV files.
@@ -33,15 +34,15 @@ public class ReportService : IReportService
     /// <summary>
     /// Ensures reports are loaded from the source file
     /// </summary>
-    private async Task EnsureReportsLoadedAsync()
+    private async Task EnsureDataLoadedAsync()
     {
-        if (_reports == null)
+        if (_results == null)
         {
             using var reader = new StreamReader(_resultsPath);
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-            var results = await csv.GetRecordsAsync<Result>().ToListAsync();
+            _results = await csv.GetRecordsAsync<Result>().ToListAsync();
 
-            _reports = results
+            _reports = _results
                 .GroupBy(r => r.CaseNumber)
                 .Select(g => new Report
                 {
@@ -63,7 +64,7 @@ public class ReportService : IReportService
     /// <returns>A paged result containing reports</returns>
     public async Task<PagedResult<Report>> GetReportsAsync(int pageSize = 10, string? cursor = null)
     {
-        await EnsureReportsLoadedAsync();
+        await EnsureDataLoadedAsync();
 
         var startIndex = 0;
         if (!string.IsNullOrEmpty(cursor))
@@ -101,7 +102,7 @@ public class ReportService : IReportService
     /// <returns>A collection of protocol names</returns>
     public async Task<IEnumerable<string>> GetDistinctProtocolNamesAsync()
     {
-        await EnsureReportsLoadedAsync();
+        await EnsureDataLoadedAsync();
 
         return _reports!
             .Select(r => r.ProtocolName)
@@ -118,7 +119,7 @@ public class ReportService : IReportService
     /// <returns>A paged result containing filtered reports</returns>
     public async Task<PagedResult<Report>> GetReportsByProtocolAsync(string protocolName, int pageSize = 10, string? cursor = null)
     {
-        await EnsureReportsLoadedAsync();
+        await EnsureDataLoadedAsync();
 
         var startIndex = 0;
         if (!string.IsNullOrEmpty(cursor))
@@ -151,5 +152,15 @@ public class ReportService : IReportService
             HasMore = hasMore,
             TotalCount = filteredReports.Count()
         };
+    }
+
+    /// <summary>
+    /// Retrieves all raw result records with questions and answers.
+    /// </summary>
+    /// <returns>A collection of Result objects</returns>
+    public async Task<IEnumerable<Result>> GetResultsAsync()
+    {
+        await EnsureDataLoadedAsync();
+        return _results!;
     }
 }

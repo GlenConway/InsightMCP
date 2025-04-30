@@ -25,4 +25,10 @@ public interface IReportService
     /// <param name="cursor">Base64 encoded cursor for pagination</param>
     /// <returns>A paged result containing filtered reports</returns>
     Task<PagedResult<Report>> GetReportsByProtocolAsync(string protocolName, int pageSize = 10, string? cursor = null);
+
+    /// <summary>
+    /// Retrieves all raw result records with questions and answers.
+    /// </summary>
+    /// <returns>A collection of Result objects</returns>
+    Task<IEnumerable<Result>> GetResultsAsync();
 }
