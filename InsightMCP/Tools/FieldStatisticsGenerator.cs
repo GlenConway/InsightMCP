@@ -10,6 +10,54 @@ using InsightMCP.Models;
 
 namespace InsightMCP.Tools;
 
+/// <summary>
+/// Represents a single value distribution in field statistics
+/// </summary>
+public record ValueDistribution
+{
+    /// <summary>
+    /// The field value
+    /// </summary>
+    [JsonPropertyName("value")]
+    public required string Value { get; init; }
+    
+    /// <summary>
+    /// Count of occurrences
+    /// </summary>
+    [JsonPropertyName("count")]
+    public int Count { get; init; }
+    
+    /// <summary>
+    /// Percentage of total occurrences
+    /// </summary>
+    [JsonPropertyName("percentage")]
+    public double Percentage { get; init; }
+}
+
+/// <summary>
+/// Represents statistics about a field's values
+/// </summary>
+public record FieldStatistics
+{
+    /// <summary>
+    /// Name of the field being analyzed
+    /// </summary>
+    [JsonPropertyName("fieldName")]
+    public required string FieldName { get; init; }
+    
+    /// <summary>
+    /// Total number of occurrences of the field
+    /// </summary>
+    [JsonPropertyName("totalCount")]
+    public int TotalCount { get; init; }
+    
+    /// <summary>
+    /// Distribution of values
+    /// </summary>
+    [JsonPropertyName("values")]
+    public required List<ValueDistribution> Values { get; init; }
+}
+
 [McpServerToolType]
 public sealed class FieldStatisticsGenerator
 {
@@ -25,8 +73,8 @@ public sealed class FieldStatisticsGenerator
         {
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            ReferenceHandler = ReferenceHandler.Preserve
+            PropertyNameCaseInsensitive = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
     }
 
@@ -55,18 +103,18 @@ public sealed class FieldStatisticsGenerator
             if (filteredResults.Count == 0)
             {
                 _logger.LogWarning("No data found for field: {fieldName}", fieldName);
-                return JsonSerializer.Serialize(new
+                return JsonSerializer.Serialize(new FieldStatistics
                 {
                     FieldName = fieldName,
                     TotalCount = 0,
-                    Values = new object[] { }
+                    Values = new List<ValueDistribution>()
                 }, _jsonOptions);
             }
 
             // Calculate distribution
             var distribution = filteredResults
                 .GroupBy(r => r.Answer)
-                .Select(g => new
+                .Select(g => new ValueDistribution
                 {
                     Value = g.Key,
                     Count = g.Count(),
@@ -75,9 +123,10 @@ public sealed class FieldStatisticsGenerator
                 .OrderByDescending(x => x.Count)
                 .ToList();
 
-            var response = new
+            // Create the statistics object with the original fieldName (preserving case)
+            var response = new FieldStatistics
             {
-                FieldName = fieldName,
+                FieldName = fieldName, // Preserve original case
                 TotalCount = filteredResults.Count,
                 Values = distribution
             };
