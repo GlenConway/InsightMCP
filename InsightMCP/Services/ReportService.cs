@@ -7,6 +7,8 @@ using CsvHelper;
 using System.Globalization;
 using InsightMCP.Models;
 using System.Text;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace InsightMCP.Services;
 
@@ -17,6 +19,7 @@ namespace InsightMCP.Services;
 public class ReportService : IReportService
 {
     private readonly string _resultsPath;
+    private readonly ILogger<ReportService> _logger;
     private List<Report>? _reports;
     private List<Result>? _results;
 
@@ -26,9 +29,12 @@ public class ReportService : IReportService
     /// <param name="reportsPath">Path to the reports CSV file. Defaults to "reports.csv"</param>
     /// <param name="questionsAndAnswersPath">Path to the Q&A CSV file. Defaults to "q_and_a.csv"</param>
     /// <param name="resultsPath">Path to the results CSV file. Defaults to "results.csv"</param>
-    public ReportService(string resultsPath = "Data/results.csv")
+    public ReportService(ILogger<ReportService> logger, string resultsPath = "Data/results.csv")
     {
+        _logger = logger;
         _resultsPath = resultsPath;
+        Log.Information("LOG!");
+        _logger.LogInformation("ReportService initialized with results path: {ResultsPath}", _resultsPath);
     }
 
     /// <summary>
@@ -38,21 +44,37 @@ public class ReportService : IReportService
     {
         if (_results == null)
         {
-            using var reader = new StreamReader(_resultsPath);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-            _results = await csv.GetRecordsAsync<Result>().ToListAsync();
+            _logger.LogInformation("Loading report data from {ResultsPath}", _resultsPath);
+            try
+            {
+                using var reader = new StreamReader(_resultsPath);
+                using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+                _results = await csv.GetRecordsAsync<Result>().ToListAsync();
+                _logger.LogInformation("Successfully loaded {ResultCount} results from CSV", _results.Count);
 
-            _reports = _results
-                .GroupBy(r => r.CaseNumber)
-                .Select(g => new Report
-                {
-                    CaseNumber = g.Key,
-                    ReportLOINCCode = g.First().ReportLOINCCode,
-                    ReportLOINCName = g.First().ReportLOINCName,
-                    ProtocolName = g.First().ProtocolName,
-                    ReportText = string.Join("\n", g.Select(r => $"{r.Question}: {r.Answer}"))
-                })
-                .ToList();
+                _reports = _results
+                    .GroupBy(r => r.CaseNumber)
+                    .Select(g => new Report
+                    {
+                        CaseNumber = g.Key,
+                        ReportLOINCCode = g.First().ReportLOINCCode,
+                        ReportLOINCName = g.First().ReportLOINCName,
+                        ProtocolName = g.First().ProtocolName,
+                        ReportText = string.Join("\n", g.Select(r => $"{r.Question}: {r.Answer}"))
+                    })
+                    .ToList();
+                _logger.LogInformation("Generated {ReportCount} reports from results data", _reports.Count);
+            }
+            catch (FileNotFoundException ex)
+            {
+                _logger.LogError(ex, "Results file not found at path: {ResultsPath}", _resultsPath);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading report data from {ResultsPath}", _resultsPath);
+                throw;
+            }
         }
     }
 
@@ -64,6 +86,7 @@ public class ReportService : IReportService
     /// <returns>A paged result containing reports</returns>
     public async Task<PagedResult<Report>> GetReportsAsync(int pageSize = 10, string? cursor = null)
     {
+        _logger.LogInformation("Retrieving reports with pageSize: {PageSize}, cursor: {Cursor}", pageSize, cursor ?? "null");
         await EnsureDataLoadedAsync();
 
         var startIndex = 0;
@@ -87,13 +110,17 @@ public class ReportService : IReportService
             Convert.ToBase64String(Encoding.UTF8.GetBytes((startIndex + pageSize).ToString())) :
             null;
 
-        return new PagedResult<Report>
+        var result = new PagedResult<Report>
         {
             Items = items,
             NextCursor = nextCursor,
             HasMore = hasMore,
             TotalCount = _reports!.Count
         };
+        
+        _logger.LogInformation("Returning {ItemCount} reports (total: {TotalCount}, hasMore: {HasMore})", 
+            items.Count, _reports!.Count, hasMore);
+        return result;
     }
 
     /// <summary>
@@ -102,12 +129,17 @@ public class ReportService : IReportService
     /// <returns>A collection of protocol names</returns>
     public async Task<IEnumerable<string>> GetDistinctProtocolNamesAsync()
     {
+        _logger.LogInformation("Retrieving distinct protocol names");
         await EnsureDataLoadedAsync();
 
-        return _reports!
+        var protocolNames = _reports!
             .Select(r => r.ProtocolName)
             .Distinct()
-            .OrderBy(name => name);
+            .OrderBy(name => name)
+            .ToList();
+            
+        _logger.LogInformation("Found {ProtocolCount} distinct protocol names", protocolNames.Count);
+        return protocolNames;
     }
 
     /// <summary>
@@ -119,6 +151,8 @@ public class ReportService : IReportService
     /// <returns>A paged result containing filtered reports</returns>
     public async Task<PagedResult<Report>> GetReportsByProtocolAsync(string protocolName, int pageSize = 10, string? cursor = null)
     {
+        _logger.LogInformation("Retrieving reports by protocol: {ProtocolName}, pageSize: {PageSize}, cursor: {Cursor}", 
+            protocolName, pageSize, cursor ?? "null");
         await EnsureDataLoadedAsync();
 
         var startIndex = 0;
@@ -128,7 +162,16 @@ public class ReportService : IReportService
         }
 
         var filteredReports = _reports!
-            .Where(r => r.ProtocolName.Equals(protocolName, StringComparison.OrdinalIgnoreCase));
+            .Where(r => r.ProtocolName.Equals(protocolName, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+            
+        _logger.LogInformation("Found {FilteredCount} reports matching protocol: {ProtocolName}", 
+            filteredReports.Count, protocolName);
+            
+        if (filteredReports.Count == 0)
+        {
+            _logger.LogWarning("No reports found for protocol: {ProtocolName}", protocolName);
+        }
 
         var items = filteredReports
             .Skip(startIndex)
@@ -145,13 +188,17 @@ public class ReportService : IReportService
             Convert.ToBase64String(Encoding.UTF8.GetBytes((startIndex + pageSize).ToString())) :
             null;
 
-        return new PagedResult<Report>
+        var result = new PagedResult<Report>
         {
             Items = items,
             NextCursor = nextCursor,
             HasMore = hasMore,
-            TotalCount = filteredReports.Count()
+            TotalCount = filteredReports.Count
         };
+        
+        _logger.LogInformation("Returning {ItemCount} reports for protocol {ProtocolName} (total: {TotalCount}, hasMore: {HasMore})", 
+            items.Count, protocolName, filteredReports.Count, hasMore);
+        return result;
     }
 
     /// <summary>
@@ -160,7 +207,9 @@ public class ReportService : IReportService
     /// <returns>A collection of Result objects</returns>
     public async Task<IEnumerable<Result>> GetResultsAsync()
     {
+        _logger.LogInformation("Retrieving all raw results");
         await EnsureDataLoadedAsync();
+        _logger.LogInformation("Returning {ResultCount} raw results", _results!.Count);
         return _results!;
     }
 }

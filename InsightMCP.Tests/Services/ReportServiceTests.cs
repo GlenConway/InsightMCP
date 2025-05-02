@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 namespace InsightMCP.Tests;
 public class ReportServiceTests : IDisposable
 {
@@ -10,21 +12,24 @@ public class ReportServiceTests : IDisposable
     private readonly string _testResultsPath = "TestData/results.csv";
     private readonly ReportService _service;
     private readonly string _realResultsPath;
+    private readonly ILogger<ReportService> _logger;
 
     public ReportServiceTests()
     {
         // Set up real file paths
         _realResultsPath = Path.Combine("TestData", "results.csv");
+        
+        // Create a null logger for testing
+        _logger = NullLogger<ReportService>.Instance;
 
-
-        _service = new ReportService(_testResultsPath);
+        _service = new ReportService(_logger, _testResultsPath);
     }
     [Fact]
     public async Task GetReportsAsync_ShouldReturnAllReportsFromResultsFile()
     {
         // Arrange
         CreateTestResultsFile();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
 
         // Act
         var reports = (await serviceWithResults.GetReportsAsync()).Items.ToList();
@@ -44,7 +49,7 @@ public class ReportServiceTests : IDisposable
     {
         // Arrange
         CreateTestResultsFile();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
         const int pageSize = 1;
 
         // Act
@@ -66,7 +71,7 @@ public class ReportServiceTests : IDisposable
     {
         // Arrange
         CreateTestResultsFile();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
         const int pageSize = 2;
 
         // Act
@@ -84,7 +89,7 @@ public class ReportServiceTests : IDisposable
     {
         // Arrange
         CreateTestResultsFile();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
         const string invalidCursor = "invalid_cursor";
 
         // Act & Assert
@@ -109,7 +114,7 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
         CreateRealSampleFiles();
 
         // Create service with paths relative to current directory
-        var realService = new ReportService(_realResultsPath);
+        var realService = new ReportService(_logger, _realResultsPath);
 
         // Act
         var reports = (await realService.GetReportsAsync()).Items.ToList();
@@ -124,7 +129,7 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
     {
         // Arrange
         CreateTestResultsFile();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
 
         // Act
         var protocolNames = await serviceWithResults.GetDistinctProtocolNamesAsync();
@@ -143,7 +148,7 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
     {
         // Arrange
         CreateTestResultsFile();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
 
         // Act
         var reports = (await serviceWithResults.GetReportsByProtocolAsync("Test Protocol Name")).Items.ToList();
@@ -159,7 +164,7 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
     {
         // Arrange
         CreateTestResultsFile();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
 
         // Act
         var reports = (await serviceWithResults.GetReportsByProtocolAsync("TEST PROTOCOL NAME")).Items.ToList();
@@ -175,7 +180,7 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
     {
         // Arrange
         CreateTestResultsFile();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
 
         // Act
         var pagedResult = await serviceWithResults.GetReportsByProtocolAsync("Non Existent Protocol");
@@ -193,7 +198,7 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
     {
         // Arrange
         CreateTestResultsFileWithMultipleProtocols();
-        var serviceWithResults = new ReportService(_testResultsPath);
+        var serviceWithResults = new ReportService(_logger, _testResultsPath);
         const int pageSize = 1;
         const string protocolName = "Test Protocol Name";
 
