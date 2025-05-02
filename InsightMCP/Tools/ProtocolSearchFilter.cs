@@ -23,6 +23,7 @@ public sealed class ProtocolSearchFilter
         _jsonOptions = new JsonSerializerOptions
         {
             WriteIndented = true,
+            PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             ReferenceHandler = ReferenceHandler.Preserve
@@ -59,16 +60,26 @@ Pagination notes: To retrieve subsequent pages, pass the nextCursor value from t
             // Validate parameters
             ValidateSearchParameters(organSystem, ref year, ref version, ref pageSize, ref cursor);
 
-            // Get distinct protocol names first to filter more efficiently
+            // Get distinct protocol names first
             var protocolNames = await _reportService.GetDistinctProtocolNamesAsync();
-            var filteredProtocolNames = FilterProtocolNames(protocolNames, organSystem, year, version);
+            
+            // Filter by organ system and version only (year filtering moved to after fetching reports)
+            var filteredProtocolNames = FilterProtocolNames(protocolNames, organSystem, null, version);
 
-            // Now get reports only for the filtered protocol names
+            // Get reports for the filtered protocol names
             var allFilteredReports = new List<Report>();
             foreach (var protocolName in filteredProtocolNames)
             {
                 var reports = await _reportService.GetReportsByProtocolAsync(protocolName, int.MaxValue - 1);
                 allFilteredReports.AddRange(reports.Items);
+            }
+
+            // Apply year filter using Date property
+            if (year.HasValue)
+            {
+                allFilteredReports = allFilteredReports
+                    .Where(r => r.Date?.Year == year.Value)
+                    .ToList();
             }
 
             // Handle pagination
@@ -134,13 +145,6 @@ Pagination notes: To retrieve subsequent pages, pass the nextCursor value from t
         {
             filtered = filtered.Where(p => 
                 p.Contains(organSystem, StringComparison.OrdinalIgnoreCase));
-        }
-
-        if (year.HasValue)
-        {
-            var yearStr = year.ToString();
-            filtered = filtered.Where(p => 
-                Regex.IsMatch(p, $@"\b{yearStr}\b"));
         }
 
         if (!string.IsNullOrWhiteSpace(version))

@@ -99,9 +99,9 @@ public class ReportServiceTests : IDisposable
 
     private void CreateTestResultsFile()
     {
-        var content = @"CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer
-result1,12345-6,Test LOINC Name,Test Protocol Name,Result Question1,Result Answer1
-result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result Answer2";
+        var content = @"CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer,Date
+result1,12345-6,Test LOINC Name,Test Protocol Name,Result Question1,Result Answer1,2024-01-01
+result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result Answer2,2024-01-02";
 
         Directory.CreateDirectory("TestData");
         File.WriteAllText(_testResultsPath, content);
@@ -219,10 +219,10 @@ result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result
 
     private void CreateTestResultsFileWithMultipleProtocols()
     {
-        var content = @"CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer
-result1,12345-6,Test LOINC Name,Test Protocol Name,Result Question1,Result Answer1
-result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result Answer2
-result3,12345-6,Test LOINC Name,Test Protocol Name,Result Question3,Result Answer3";
+        var content = @"CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer,Date
+result1,12345-6,Test LOINC Name,Test Protocol Name,Result Question1,Result Answer1,2024-01-01
+result2,67890-1,Another LOINC Name,Another Protocol Name,Result Question2,Result Answer2,2024-01-02
+result3,12345-6,Test LOINC Name,Test Protocol Name,Result Question3,Result Answer3,2024-01-03";
 
         Directory.CreateDirectory("TestData");
         File.WriteAllText(_testResultsPath, content);
@@ -239,10 +239,10 @@ result3,12345-6,Test LOINC Name,Test Protocol Name,Result Question3,Result Answe
 
 
             // Create sample results.csv file with explicit Windows line endings
-            var resultsContent = "CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer\r\n" +
-                           "CASE001,60568-3,Lung Cancer Synoptic Report,Lung Cancer Protocol,Tumor Size,3.5 cm\r\n" +
-                           "CASE002,60569-1,Colorectal Cancer Synoptic Report,Colorectal Cancer Protocol,Lymph Node Status,Positive (2/12)\r\n" +
-                           "CASE003,60570-9,Breast Cancer Synoptic Report,Breast Cancer Protocol,Estrogen Receptor Status,Positive (>90%)";
+            var resultsContent = "CaseNumber,ReportLoincCode,ReportLoincName,Protocol Name,Question,Answer,Date\r\n" +
+                           "CASE001,60568-3,Lung Cancer Synoptic Report,Lung Cancer Protocol,Tumor Size,3.5 cm,2024-01-01\r\n" +
+                           "CASE002,60569-1,Colorectal Cancer Synoptic Report,Colorectal Cancer Protocol,Lymph Node Status,Positive (2/12),2024-01-02\r\n" +
+                           "CASE003,60570-9,Breast Cancer Synoptic Report,Breast Cancer Protocol,Estrogen Receptor Status,Positive (>90%),2024-01-03";
 
             File.WriteAllText(_realResultsPath, resultsContent, new UTF8Encoding(false));
 

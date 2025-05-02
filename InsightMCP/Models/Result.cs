@@ -21,4 +21,7 @@ public class Result
 
     [Name("Answer")]
     public required string Answer { get; set; }
+
+    [Name("Date")]
+    public DateTime? Date { get; set; }
 }

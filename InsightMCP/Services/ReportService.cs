@@ -60,6 +60,7 @@ public class ReportService : IReportService
                         ReportLOINCCode = g.First().ReportLOINCCode,
                         ReportLOINCName = g.First().ReportLOINCName,
                         ProtocolName = g.First().ProtocolName,
+                        Date = g.First().Date,
                         ReportText = string.Join("\n", g.Select(r => $"{r.Question}: {r.Answer}"))
                     })
                     .ToList();
