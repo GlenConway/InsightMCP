@@ -6,18 +6,16 @@ namespace InsightMCP.Models;
 [JsonConverter(typeof(ReportJsonConverter))]
 public class Report
 {
-
     public required string CaseNumber { get; set; }
-
     public required string ReportLOINCCode { get; set; }
-
     public required string ReportLOINCName { get; set; }
-
     public required string ProtocolName { get; set; }
-
     public required string ReportText { get; set; }
-
     public DateTime? Date { get; set; }
+    public string? ProcedureType { get; set; }
+    public string? TumorType { get; set; }
+    public double? TumorSize { get; set; }
+    public string? MarginStatus { get; set; }
 }
 
 public class ReportJsonConverter : JsonConverter<Report>
@@ -76,6 +74,21 @@ public class ReportJsonConverter : JsonConverter<Report>
                         report.Date = reader.GetDateTime();
                     }
                     break;
+                case "proceduretype":
+                    report.ProcedureType = reader.GetString();
+                    break;
+                case "tumortype":
+                    report.TumorType = reader.GetString();
+                    break;
+                case "tumorsize":
+                    if (reader.TokenType != JsonTokenType.Null)
+                    {
+                        report.TumorSize = reader.GetDouble();
+                    }
+                    break;
+                case "marginstatus":
+                    report.MarginStatus = reader.GetString();
+                    break;
             }
         }
 
@@ -93,6 +106,22 @@ public class ReportJsonConverter : JsonConverter<Report>
         if (value.Date.HasValue)
         {
             writer.WriteString("date", value.Date.Value);
+        }
+        if (value.ProcedureType != null)
+        {
+            writer.WriteString("procedureType", value.ProcedureType);
+        }
+        if (value.TumorType != null)
+        {
+            writer.WriteString("tumorType", value.TumorType);
+        }
+        if (value.TumorSize.HasValue)
+        {
+            writer.WriteNumber("tumorSize", value.TumorSize.Value);
+        }
+        if (value.MarginStatus != null)
+        {
+            writer.WriteString("marginStatus", value.MarginStatus);
         }
         writer.WriteEndObject();
     }

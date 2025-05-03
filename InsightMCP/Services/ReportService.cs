@@ -32,8 +32,7 @@ public class ReportService : IReportService
     public ReportService(ILogger<ReportService> logger, string resultsPath = "Data/results.csv")
     {
         _logger = logger;
-        _resultsPath = resultsPath;
-        Log.Information("LOG!");
+        _resultsPath = Path.GetFullPath(resultsPath);
         _logger.LogInformation("ReportService initialized with results path: {ResultsPath}", _resultsPath);
     }
 
