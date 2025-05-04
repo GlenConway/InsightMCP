@@ -16,6 +16,9 @@ public class Report
     public string? TumorType { get; set; }
     public double? TumorSize { get; set; }
     public string? MarginStatus { get; set; }
+    public string? ClinicalStage { get; set; }
+    public string? PathologicalStage { get; set; }
+    public string? StagingSystem { get; set; }
 }
 
 public class ReportJsonConverter : JsonConverter<Report>
@@ -89,6 +92,15 @@ public class ReportJsonConverter : JsonConverter<Report>
                 case "marginstatus":
                     report.MarginStatus = reader.GetString();
                     break;
+                case "clinicalstage":
+                    report.ClinicalStage = reader.GetString();
+                    break;
+                case "pathologicalstage":
+                    report.PathologicalStage = reader.GetString();
+                    break;
+                case "stagingsystem":
+                    report.StagingSystem = reader.GetString();
+                    break;
             }
         }
 
@@ -122,6 +134,18 @@ public class ReportJsonConverter : JsonConverter<Report>
         if (value.MarginStatus != null)
         {
             writer.WriteString("marginStatus", value.MarginStatus);
+        }
+        if (value.ClinicalStage != null)
+        {
+            writer.WriteString("clinicalStage", value.ClinicalStage);
+        }
+        if (value.PathologicalStage != null)
+        {
+            writer.WriteString("pathologicalStage", value.PathologicalStage);
+        }
+        if (value.StagingSystem != null)
+        {
+            writer.WriteString("stagingSystem", value.StagingSystem);
         }
         writer.WriteEndObject();
     }
